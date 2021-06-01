@@ -1,0 +1,10 @@
+﻿  CornersBoard.cpp
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(7,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(9,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(10,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(13,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(15,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(22,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(34,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(37,30): warning C4018: '<': signed/unsigned mismatch
+  Corners_3x3.vcxproj -> C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\x64\Debug\Corners_3x3.exe
