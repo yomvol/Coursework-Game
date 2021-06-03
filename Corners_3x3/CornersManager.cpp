@@ -29,11 +29,78 @@ CornersManager::~CornersManager()
 
 void CornersManager::ShowBoard()
 {
+	cout << "Ходов белых сделано: " << NumWhiteTurns << " Ходов чёрных сделано: " << NumBlackTurns << endl;
 	this->board->Show();
 }
 
 void CornersManager::MakeMove()
 {
+	if (NumBlackTurns > 10 && NumBlackTurns == NumWhiteTurns)
+	{
+		unsigned int WhiteProgress = this->board->WhitesOnBlackBase();
+		unsigned int BlackProgress = this->board->BlacksOnWhiteBase();
+		if (NumBlackTurns == 40)
+		{
+			unsigned int WhiteFault = this->board->WhitesOnWhiteBase();
+			if (WhiteFault > 0)
+			{
+				cout << "Игрок " << player2->GetName() << " победил из-за задержки оппонента в доме" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+			unsigned int BlackFault = this->board->BlacksOnBlackBase();
+			if (BlackFault > 0)
+			{
+				cout << "Игрок " << player1->GetName() << " победил из-за задержки оппонента в доме" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+		}
+		if (NumBlackTurns == 80)
+		{
+			if (WhiteProgress > BlackProgress)
+			{
+				cout << "Игрок " << player1->GetName() << " победил!" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+			else if (WhiteProgress == BlackProgress)
+			{
+				cout << "Ничья!" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+			else
+			{
+				cout << "Игрок " << player2->GetName() << " победил!" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+		}
+		else
+		{
+			if (WhiteProgress == 9)
+			{
+				cout << "Игрок " << player1->GetName() << " победил!" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+			if (BlackProgress == 9)
+			{
+				cout << "Игрок " << player2->GetName() << " победил!" << endl;
+				this->GameFinished = true;
+				ShowBoard();
+				return;
+			}
+		}
+	}
+
 	ShowBoard();
 	while (!currentPlayer->MakeMove())
 	{
@@ -48,23 +115,22 @@ void CornersManager::MakeMove()
 		ShowBoard();
 	}
 	
-	/*
-	if (this->board->CheckEndCondition())
-	{
-		if (this->board->IsVictory())
-			cout << "Игрок " << currentPlayer->GetName() << " победил!" << endl;
-		else
-			cout << "Ничья!" << endl;
-		this->bGameFinished = true;
-		ShowBoard();
-		return;
-	}
-	*/
+	
 	// Check for consequential turns
 	if (currentPlayer->GetDidHop() == false)
+	{
+		if (currentPlayer == player1)
+			NumWhiteTurns++;
+		else
+			NumBlackTurns++;
 		currentPlayer = (currentPlayer == player1) ? player2 : player1;
+	}
 	else if (currentPlayer->GetIsPassingTurn() == true)
 	{
+		if (currentPlayer == player1)
+			NumWhiteTurns++;
+		else
+			NumBlackTurns++;
 		currentPlayer->SetDidHop(false);
 		currentPlayer->SetIsPassingTurn(false);
 		currentPlayer = (currentPlayer == player1) ? player2 : player1;
