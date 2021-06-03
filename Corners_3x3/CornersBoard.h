@@ -14,8 +14,9 @@ public:
 	virtual ~CornersBoard();
 	void Show();
 	void SetTile(unsigned int xpos, unsigned int ypos, Tile t);
-	bool CheckLegal(unsigned int xpos, unsigned int ypos);
+	bool CheckLegal(unsigned int startxpos, unsigned int startypos, unsigned int endxpos, unsigned int endypos);
 	bool CheckEndCondition();
 	bool IsVictory();
+	bool CheckLegalPick(unsigned int startxpos, unsigned int startypos, Tile t);
 };
 

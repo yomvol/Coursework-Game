@@ -144,12 +144,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CornersBoard.cpp" />
+    <ClCompile Include="CornersHumanPlayer.cpp" />
     <ClCompile Include="CornersManager.cpp" />
+    <ClCompile Include="CornersPlayer.cpp" />
     <ClCompile Include="Corners_3x3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CornersBoard.h" />
+    <ClInclude Include="CornersHumanPlayer.h" />
     <ClInclude Include="CornersManager.h" />
+    <ClInclude Include="CornersPlayer.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>

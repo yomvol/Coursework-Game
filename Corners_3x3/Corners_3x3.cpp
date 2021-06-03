@@ -6,7 +6,11 @@ int main()
     char a;
     setlocale(LC_ALL, "Russian");
     CornersManager manager;
-    manager.ShowBoard();
+    
+    while (!manager.IsGameFinished())
+    {
+        manager.MakeMove();
+    }
 
     cin >> a;
     return 0;
