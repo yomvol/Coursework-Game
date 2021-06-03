@@ -10,7 +10,7 @@ private:
 	CornersPlayer* player1;
 	CornersPlayer* player2;
 	CornersPlayer* currentPlayer;
-	unsigned int NumWhiteTurns = 1, NumBlackTurns = 1;
+	unsigned int NumWhiteTurns = 0, NumBlackTurns = 0;
 
 public:
 	CornersManager();

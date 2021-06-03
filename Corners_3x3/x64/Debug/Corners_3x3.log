@@ -1,2 +1,4 @@
 ﻿  CornersManager.cpp
+  Corners_3x3.cpp
+  LINK : C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\x64\Debug\Corners_3x3.exe not found or not built by the last incremental link; performing full link
   Corners_3x3.vcxproj -> C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\x64\Debug\Corners_3x3.exe
