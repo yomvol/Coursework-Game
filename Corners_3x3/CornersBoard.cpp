@@ -62,3 +62,42 @@ void CornersBoard::SetTile(unsigned int xpos, unsigned int ypos, Tile t)
 	tiles[ypos][xpos] = t;
 }
 
+bool CornersBoard::CheckLegalPick(unsigned int startxpos, unsigned int startypos, Tile t)
+{
+	if (t != tiles[startypos][startxpos])
+		return false;
+	else
+		return true;
+}
+
+bool CornersBoard::CheckLegal(unsigned int startxpos, unsigned int startypos, unsigned int endxpos, unsigned int endypos)
+{
+	if ((startxpos < 0) || (startxpos > boardsize - 1) || (startypos < 0) || (startypos > boardsize - 1) || (endxpos < 0) || (endxpos > boardsize - 1) || (endypos < 0) || (endypos > boardsize - 1))
+		return false;
+	bool VerticalMove = (startxpos == endxpos ? true : false);
+	bool HorizontalMove = (startypos == endypos ? true : false);
+	if ((VerticalMove && HorizontalMove) || !(VerticalMove || HorizontalMove)) //Diagonal moves and idling are banned
+		return false;
+	int diffy = int(endypos - startypos);
+	int diffx = int(endxpos - startxpos);
+	unsigned int adiffy = abs(diffy);
+	unsigned int adiffx = abs(diffx);
+	if (VerticalMove)
+		if (adiffy > 2)
+			return false;
+		else if (diffy == -2 && tiles[startypos - 1][startxpos] == Tile_Empty) //UP
+			return false;
+		else if (diffy == 2 && tiles[startypos + 1][startxpos] == Tile_Empty) //DOWN
+			return false;
+	if (HorizontalMove)
+		if (adiffx > 2) //Check adjacent piece
+			return false;
+		else if (diffx == -2 && tiles[startypos][startxpos - 1] == Tile_Empty) //LEFT
+			return false;
+		else if (diffx == 2 && tiles[startypos][startxpos + 1] == Tile_Empty) //RIGHT
+			return false;
+	if (tiles[endypos][endxpos] != Tile_Empty)
+		return false;
+
+	return true;
+}
