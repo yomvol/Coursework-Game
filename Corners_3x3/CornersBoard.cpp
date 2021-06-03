@@ -101,3 +101,43 @@ bool CornersBoard::CheckLegal(unsigned int startxpos, unsigned int startypos, un
 
 	return true;
 }
+
+unsigned int CornersBoard::WhitesOnBlackBase()
+{
+	unsigned int counter = 0;
+	for (unsigned int i = 5; i < boardsize; i++)
+		for (unsigned int j = 0; j < 3; j++)
+			if (tiles[j][i] = Tile_White)
+				counter++;
+	return counter;
+}
+
+unsigned int CornersBoard::BlacksOnWhiteBase()
+{
+	unsigned int counter = 0;
+	for (unsigned int i = 0; i < 3; i++)
+		for (unsigned int j = 5; j < boardsize; j++)
+			if (tiles[j][i] == Tile_Black)
+				counter++;
+	return counter;
+}
+
+unsigned int CornersBoard::WhitesOnWhiteBase()
+{
+	unsigned int counter = 0;
+	for (unsigned int i = 0; i < 3; i++)
+		for (unsigned int j = 5; j < boardsize; j++)
+			if (tiles[j][i] == Tile_White)
+				counter++;
+	return counter;
+}
+
+unsigned int CornersBoard::BlacksOnBlackBase()
+{
+	unsigned int counter = 0;
+	for (unsigned int i = 5; i < boardsize; i++)
+		for (unsigned int j = 0; j < 3; j++)
+			if (tiles[j][i] = Tile_Black)
+				counter++;
+	return counter;
+}
