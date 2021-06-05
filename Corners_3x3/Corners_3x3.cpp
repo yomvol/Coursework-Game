@@ -3,6 +3,7 @@
 
 int main()
 {
+    srand(time(nullptr));
     char a;
     setlocale(LC_ALL, "Russian");
     CornersManager manager;
