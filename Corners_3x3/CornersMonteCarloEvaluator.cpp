@@ -101,13 +101,13 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 			{
 				if (WhiteProgress == 9)
 				{
-					numLosses = numLosses++;
+					numLosses++;
 					GameFinished = true;
 					return;
 				}
 				if (BlackProgress == 9)
 				{
-					numVictories = numVictories++;
+					numVictories++;
 					GameFinished = true;
 					return;
 				}
