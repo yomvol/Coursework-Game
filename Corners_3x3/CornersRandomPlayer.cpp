@@ -17,7 +17,13 @@ bool CornersRandomPlayer::MakeMove(unsigned int NumWhiteTurns, unsigned int NumB
 	unsigned int startrow, startcol, endrow = 0, endcol = 0;
 	if (DidHop == false)
 	{
-		this->PiecesCoords = this->board->FindPieces(this->tile);
+		unsigned int* piecesCoords = this->board->FindPieces(this->tile);
+		unsigned int arr[18];
+		PiecesCoords = arr;
+		for (int i = 0; i < 18; i++)
+		{
+			PiecesCoords[i] = *(piecesCoords + i);
+		}
 		unsigned int Picking = rand() % 9;
 		startcol = PiecesCoords[2 * Picking];
 		startrow = PiecesCoords[2 * Picking + 1];

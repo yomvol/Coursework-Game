@@ -40,7 +40,7 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 	player2->SetupPlayer("RandomBlack", Tile_Black);
 	player1->SetBoard(b);
 	player2->SetBoard(b);
-	if (DidHop = false)
+	if (DidHop == false)
 	{
 		currentPlayer = (StartTurn == Tile_White) ? player1 : player2;
 	}
@@ -55,7 +55,7 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 
 	while (!GameFinished)
 	{
-		if (NumBlackTurns > 10 && NumBlackTurns == NumWhiteTurns)
+		if (NumBlackTurns > 15 && NumBlackTurns == NumWhiteTurns)
 		{
 			unsigned int WhiteProgress = b->WhitesOnBlackBase();
 			unsigned int BlackProgress = b->BlacksOnWhiteBase();
@@ -101,13 +101,13 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 			{
 				if (WhiteProgress == 9)
 				{
-					numLosses++;
+					numLosses = numLosses++;
 					GameFinished = true;
 					return;
 				}
 				if (BlackProgress == 9)
 				{
-					numVictories++;
+					numVictories = numVictories++;
 					GameFinished = true;
 					return;
 				}

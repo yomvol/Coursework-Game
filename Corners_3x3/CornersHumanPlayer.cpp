@@ -19,6 +19,7 @@ bool CornersHumanPlayer::MakeMove(unsigned int numWhiteTurns, unsigned int numBl
 		if (input == 'p' || input == 'P')
 		{
 			this->IsPassingTurn = true;
+			cout << endl;
 			return true;
 		}
 	}

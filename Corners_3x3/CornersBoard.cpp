@@ -154,7 +154,7 @@ unsigned int CornersBoard::BlacksOnBlackBase()
 
 unsigned int* CornersBoard::FindPieces(Tile tile)
 {
-	unsigned int piecesCoords[18];
+	static unsigned int piecesCoords[18];
 	unsigned int iter = 0;
 	for (unsigned int i = 0; i < boardsize; i++)
 		for (unsigned int j = 0; j < boardsize; j++)
@@ -167,27 +167,35 @@ unsigned int* CornersBoard::FindPieces(Tile tile)
 	return piecesCoords;
 }
 
-int CornersBoard::GetLegalHop(int startxpos, int startypos, int previousxpos, int previousypos)
+int CornersBoard::GetLegalHop(unsigned int startxpos, unsigned int startypos, unsigned int previousxpos, unsigned int previousypos)
 {
-	int code, dir;
+	int dir;
 	for (int i = 0; i < 10; i++)
 	{
 		dir = rand() % 4;
 		switch (dir)
 		{
 		case 0: //DOWN
+			if (startypos >= 6)
+				break;
 			if (tiles[startypos + 1][startxpos] != Tile_Empty && tiles[startypos + 2][startxpos] == Tile_Empty && previousypos != startypos + 2)
 				return 0;
 			break;
 		case 1: //LEFT
+			if (startxpos <= 1)
+				break;
 			if (tiles[startypos][startxpos - 1] != Tile_Empty && tiles[startypos][startxpos - 2] == Tile_Empty && previousxpos != startxpos - 2)
 				return 1;
 			break;
 		case 2: //UP
+			if (startypos <= 1)
+				break;
 			if (tiles[startypos - 1][startxpos] != Tile_Empty && tiles[startypos - 2][startxpos] == Tile_Empty && previousypos != startypos - 2)
 				return 2;
 			break;
 		case 3: //RIGHT
+			if (startxpos >= 6)
+				break;
 			if (tiles[startypos][startxpos + 1] != Tile_Empty && tiles[startypos][startxpos + 2] == Tile_Empty && previousxpos != startxpos + 2)
 				return 3;
 			break;

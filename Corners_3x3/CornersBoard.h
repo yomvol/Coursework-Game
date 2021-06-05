@@ -20,6 +20,6 @@ public:
 	unsigned int WhitesOnWhiteBase();
 	unsigned int BlacksOnBlackBase();
 	unsigned int* FindPieces(Tile tile);
-	int GetLegalHop(int startxpos, int startypos, int previousxpos, int previousypos);
+	int GetLegalHop(unsigned int startxpos, unsigned int startypos, unsigned int previousxpos, unsigned int previousypos);
 };
 

@@ -48,7 +48,7 @@ void CornersManager::ShowBoard()
 
 void CornersManager::MakeMove()
 {
-	if (NumBlackTurns > 10 && NumBlackTurns == NumWhiteTurns)
+	if (NumBlackTurns > 15 && NumBlackTurns == NumWhiteTurns)
 	{
 		unsigned int WhiteProgress = this->board->WhitesOnBlackBase();
 		unsigned int BlackProgress = this->board->BlacksOnWhiteBase();

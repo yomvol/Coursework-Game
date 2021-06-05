@@ -12,7 +12,7 @@ void CornersComputerPlayer::SetBoard(CornersBoard* board)
 	PiecesCoords = new unsigned int[18]; //Lives until destroyed deliberately
 	for (int i = 0; i < 18; i++)
 	{
-		PiecesCoords[i] = piecesCoords[i];
+		PiecesCoords[i] = *(piecesCoords + i);
 	}
 }
 
