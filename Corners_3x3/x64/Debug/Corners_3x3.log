@@ -1,3 +1,15 @@
-﻿  CornersHumanPlayer.cpp
+﻿  CornersBoard.cpp
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(85,36): warning C4018: '>': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(85,86): warning C4018: '>': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(85,132): warning C4018: '>': signed/unsigned mismatch
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersBoard.cpp(85,178): warning C4018: '>': signed/unsigned mismatch
+  CornersComputerPlayer.cpp
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\CornersComputerPlayer.cpp(152,15): warning C4101: 'Picked': unreferenced local variable
+  CornersHumanPlayer.cpp
+  CornersManager.cpp
   CornersMonteCarloEvaluator.cpp
+  CornersPlayer.cpp
+  CornersRandomPlayer.cpp
+  Corners_3x3.cpp
+C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\Corners_3x3\Corners_3x3.cpp(6,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Corners_3x3.vcxproj -> C:\Users\yomvol\Desktop\ргр 2\CW_Corners\Coursework-Game\x64\Debug\Corners_3x3.exe

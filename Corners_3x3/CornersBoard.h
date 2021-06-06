@@ -4,7 +4,7 @@
 class CornersBoard
 {
 private:
-	const int boardsize = 8;
+	const unsigned int boardsize = 8;
 	Tile** tiles;
 
 public:

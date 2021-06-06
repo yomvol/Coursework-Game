@@ -59,42 +59,43 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 		{
 			unsigned int WhiteProgress = b->WhitesOnBlackBase();
 			unsigned int BlackProgress = b->BlacksOnWhiteBase();
-			if (NumBlackTurns == 40)
+			/*if (NumBlackTurns == 40)
 			{
 				unsigned int WhiteFault = b->WhitesOnWhiteBase();
 				if (WhiteFault > 0)
 				{
 					numVictories++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 				unsigned int BlackFault = b->BlacksOnBlackBase();
 				if (BlackFault > 0)
 				{
 					numLosses++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 			}
+			*/
 			if (NumBlackTurns == 80)
 			{
 				if (WhiteProgress > BlackProgress)
 				{
 					numLosses++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 				else if (WhiteProgress == BlackProgress)
 				{
 					numDraws++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 				else
 				{
 					numVictories++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 			}
 			else
@@ -103,13 +104,13 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 				{
 					numLosses++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 				if (BlackProgress == 9)
 				{
 					numVictories++;
 					GameFinished = true;
-					return;
+					continue;
 				}
 			}
 		}
