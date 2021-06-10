@@ -39,3 +39,14 @@
 *.sdf
 *.cachefile
 *.db
+
+#Logs aand symbols
+*.suo
+*.VC.db
+*.VC.db-shm
+*.ipch
+*.log
+*.tlog
+*.idb
+*.pdb
+*.ilk
