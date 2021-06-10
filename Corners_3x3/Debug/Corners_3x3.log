@@ -1,8 +1,0 @@
-﻿  CornersBoard.cpp
-C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Corners_3x3\CornersBoard.cpp(7,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Corners_3x3\CornersBoard.cpp(9,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Corners_3x3\CornersBoard.cpp(10,30): warning C4018: '<': signed/unsigned mismatch
-C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Corners_3x3\CornersBoard.cpp(16,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Corners_3x3\CornersBoard.cpp(28,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Corners_3x3\CornersBoard.cpp(31,30): warning C4018: '<': signed/unsigned mismatch
-  Corners_3x3.vcxproj -> C:\Users\yomvol\Desktop\ргр 2\Corners_3x3\Debug\Corners_3x3.exe
