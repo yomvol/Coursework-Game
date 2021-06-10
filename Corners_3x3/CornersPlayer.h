@@ -15,8 +15,8 @@ public:
 	CornersPlayer();
 	virtual ~CornersPlayer();
 	void SetupPlayer(string name, Tile tile);
-	void SetBoard(CornersBoard* board);
-	virtual bool MakeMove() = 0;
+	virtual void SetBoard(CornersBoard* board);
+	virtual bool MakeMove(unsigned int, unsigned int) = 0;
 	string GetName();
 	bool GetIsSurrendering();
 	bool GetDidHop(); // I really miss C# properties

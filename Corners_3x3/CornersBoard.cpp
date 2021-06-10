@@ -17,6 +17,16 @@ CornersBoard::CornersBoard()
 			tiles[j][i] = Tile_Black;
 }
 
+CornersBoard::CornersBoard(CornersBoard* board) 
+{
+	tiles = new Tile * [boardsize];
+	for (unsigned int i = 0; i < boardsize; i++)
+		tiles[i] = new Tile[boardsize];
+	for (unsigned int i = 0; i < boardsize; i++)
+		for (unsigned int j = 0; j < boardsize; j++)
+			tiles[i][j] = board->tiles[i][j];
+}
+
 CornersBoard::~CornersBoard()
 {
 	for (unsigned int i = 0; i < boardsize; i++)
@@ -70,7 +80,7 @@ bool CornersBoard::CheckLegalPick(unsigned int startxpos, unsigned int startypos
 		return true;
 }
 
-bool CornersBoard::CheckLegal(unsigned int startxpos, unsigned int startypos, unsigned int endxpos, unsigned int endypos)
+bool CornersBoard::CheckLegal(int startxpos, int startypos, int endxpos, int endypos)
 {
 	if ((startxpos < 0) || (startxpos > boardsize - 1) || (startypos < 0) || (startypos > boardsize - 1) || (endxpos < 0) || (endxpos > boardsize - 1) || (endypos < 0) || (endypos > boardsize - 1))
 		return false;
@@ -107,7 +117,7 @@ unsigned int CornersBoard::WhitesOnBlackBase()
 	unsigned int counter = 0;
 	for (unsigned int i = 5; i < boardsize; i++)
 		for (unsigned int j = 0; j < 3; j++)
-			if (tiles[j][i] = Tile_White)
+			if (tiles[j][i] == Tile_White)
 				counter++;
 	return counter;
 }
@@ -137,7 +147,78 @@ unsigned int CornersBoard::BlacksOnBlackBase()
 	unsigned int counter = 0;
 	for (unsigned int i = 5; i < boardsize; i++)
 		for (unsigned int j = 0; j < 3; j++)
-			if (tiles[j][i] = Tile_Black)
+			if (tiles[j][i] == Tile_Black)
 				counter++;
 	return counter;
+}
+
+unsigned int* CornersBoard::FindPieces(Tile tile)
+{
+	static unsigned int piecesCoords[18];
+	unsigned int iter = 0;
+	for (unsigned int i = 0; i < boardsize; i++)
+		for (unsigned int j = 0; j < boardsize; j++)
+			if (tiles[j][i] == tile)
+			{
+				piecesCoords[iter] = i; //X first, Y second
+				piecesCoords[iter + 1] = j;
+				iter = iter + 2;
+			}
+	return piecesCoords;
+}
+
+int CornersBoard::GetLegalHop(unsigned int startxpos, unsigned int startypos, unsigned int previousxpos, unsigned int previousypos)
+{
+	int dir;
+	for (int i = 0; i < 10; i++)
+	{
+		dir = rand() % 4;
+		switch (dir)
+		{
+		case 0: //DOWN
+			if (startypos >= 6)
+				break;
+			if (tiles[startypos + 1][startxpos] != Tile_Empty && tiles[startypos + 2][startxpos] == Tile_Empty && previousypos != startypos + 2)
+				return 0;
+			break;
+		case 1: //LEFT
+			if (startxpos <= 1)
+				break;
+			if (tiles[startypos][startxpos - 1] != Tile_Empty && tiles[startypos][startxpos - 2] == Tile_Empty && previousxpos != startxpos - 2)
+				return 1;
+			break;
+		case 2: //UP
+			if (startypos <= 1)
+				break;
+			if (tiles[startypos - 1][startxpos] != Tile_Empty && tiles[startypos - 2][startxpos] == Tile_Empty && previousypos != startypos - 2)
+				return 2;
+			break;
+		case 3: //RIGHT
+			if (startxpos >= 6)
+				break;
+			if (tiles[startypos][startxpos + 1] != Tile_Empty && tiles[startypos][startxpos + 2] == Tile_Empty && previousxpos != startxpos + 2)
+				return 3;
+			break;
+		default:
+			throw;
+			break;
+		}
+	}
+	return -1; //Stand still
+}
+
+const int CornersBoard::mask[8][8] = {
+	0, -3, -3, -3, -4, -5, -5, -5,
+	3, 0, -2, -3, -4, -5, -5, -5, 
+	3, 2, 0, -2, -4, -5, -5, -5,
+	3, 3, 2, 0, -3, -4, -4, -4,
+	4, 4, 4, 3, 0, -2, -3, -3,
+	5, 5, 5, 4, 2, 0, -2, -3,
+	5, 5, 5, 4, 3, 2, 0, -3,
+	5, 5, 5, 4, 3, 3, 3, 0
+};
+
+int CornersBoard::GetField(unsigned int xpos, unsigned int ypos)
+{
+	return mask[ypos][xpos];
 }

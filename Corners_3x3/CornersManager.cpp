@@ -1,16 +1,27 @@
 #include "pch.h"
 #include "CornersManager.h"
 #include "CornersHumanPlayer.h"
+#include "CornersComputerPlayer.h"
 
 CornersManager::CornersManager()
 {
 	this->board = new CornersBoard();
-	//int playertype;
 	string PlayerName;
-	this->player1 = new CornersHumanPlayer();
-	this->player2 = new CornersHumanPlayer();
+	int playertype;
+	cout << "Введите тип игрока, играющего за белых (@) (1 - Человек, любое другое число - Компьютер): ";
+	cin >> playertype;
+	if (playertype == 1)
+		this->player1 = new CornersHumanPlayer();
+	else
+		this->player1 = new CornersComputerPlayer();
+	cout << "Введите тип игрока, играющего за чёрных (*) (1 - Человек, любое другое число - Компьютер): ";
+	cin >> playertype;
+	if (playertype == 1)
+		this->player2 = new CornersHumanPlayer();
+	else
+		this->player2 = new CornersComputerPlayer();
 
-	//cin.ignore(); Without it everything works fine
+	cin.ignore();
 	cout << "Введите имя игрока, играющего за белых (@): ";
 	getline(cin, PlayerName);
 	player1->SetupPlayer(PlayerName, Tile_White);
@@ -24,7 +35,9 @@ CornersManager::CornersManager()
 
 CornersManager::~CornersManager()
 {
-	delete board;
+	delete this->board;
+	delete this->player1;
+	delete this->player2;
 }
 
 void CornersManager::ShowBoard()
@@ -35,7 +48,7 @@ void CornersManager::ShowBoard()
 
 void CornersManager::MakeMove()
 {
-	if (NumBlackTurns > 10 && NumBlackTurns == NumWhiteTurns)
+	if (NumBlackTurns > 15 && NumBlackTurns == NumWhiteTurns)
 	{
 		unsigned int WhiteProgress = this->board->WhitesOnBlackBase();
 		unsigned int BlackProgress = this->board->BlacksOnWhiteBase();
@@ -102,7 +115,7 @@ void CornersManager::MakeMove()
 	}
 
 	ShowBoard();
-	while (!currentPlayer->MakeMove())
+	while (!currentPlayer->MakeMove(NumWhiteTurns, NumBlackTurns))
 	{
 		if (currentPlayer->GetIsSurrendering())
 		{

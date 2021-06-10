@@ -7,7 +7,7 @@ CornersHumanPlayer::CornersHumanPlayer()
 CornersHumanPlayer::~CornersHumanPlayer()
 {}
 
-bool CornersHumanPlayer::MakeMove()
+bool CornersHumanPlayer::MakeMove(unsigned int numWhiteTurns, unsigned int numBlackTurns)
 {
 	unsigned int startrow, startcol, endrow, endcol;
 	char input;
@@ -19,6 +19,7 @@ bool CornersHumanPlayer::MakeMove()
 		if (input == 'p' || input == 'P')
 		{
 			this->IsPassingTurn = true;
+			cout << endl;
 			return true;
 		}
 	}
@@ -27,7 +28,9 @@ bool CornersHumanPlayer::MakeMove()
 		cout << "Какой шашкой ходить?" << endl;
 		cout << "Введите строку: ";
 		cin >> startrow;
-		startrow = 8 - startrow; //EXCEPTION?
+		if (startrow > 8)
+			return false;
+		startrow = 8 - startrow;
 		cout << "Введите столбец (или нажмите S, чтобы сдаться): ";
 		cin >> input;
 		switch (input)
@@ -86,7 +89,9 @@ bool CornersHumanPlayer::MakeMove()
 	cout << "Куда ходить шашкой?" << endl;
 	cout << "Введите строку: ";
 	cin >> endrow;
-	endrow = 8 - endrow; //EXCEPTION?
+	if (endrow > 8)
+		return false;
+	endrow = 8 - endrow;
 	cout << "Введите столбец (или нажмите S, чтобы сдаться): ";
 	cin >> input;
 	switch (input)
