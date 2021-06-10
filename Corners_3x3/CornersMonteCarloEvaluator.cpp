@@ -35,6 +35,8 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 	CornersRandomPlayer* player2 = new CornersRandomPlayer();
 	CornersRandomPlayer* currentPlayer;
 	bool GameFinished = false;
+	unsigned int WhiteTurns = NumWhiteTurns;
+	unsigned int BlackTurns = NumBlackTurns;
 
 	player1->SetupPlayer("RandomWhite", Tile_White);
 	player2->SetupPlayer("RandomBlack", Tile_Black);
@@ -47,37 +49,30 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 	else
 	{
 		currentPlayer = (StartTurn == Tile_White) ? player2 : player1; // If we did hop, we chain turns
+		if (StartTurn == Tile_White)
+		{
+			BlackTurns--;
+		}
+		if (StartTurn == Tile_Black)
+		{
+			WhiteTurns--;
+		}
 		currentPlayer->SetDidHop(true);
 		currentPlayer->SetPrevCol(endcol);
 		currentPlayer->SetPrevRow(endrow);
+		currentPlayer->SetPrevPrevCol(startcol);
+		currentPlayer->SetPrevPrevRow(startrow);
 	}
 	
 
 	while (!GameFinished)
 	{
-		if (NumBlackTurns > 15 && NumBlackTurns == NumWhiteTurns)
+		if (BlackTurns > 15 && BlackTurns == WhiteTurns)
 		{
 			unsigned int WhiteProgress = b->WhitesOnBlackBase();
 			unsigned int BlackProgress = b->BlacksOnWhiteBase();
-			/*if (NumBlackTurns == 40)
-			{
-				unsigned int WhiteFault = b->WhitesOnWhiteBase();
-				if (WhiteFault > 0)
-				{
-					numVictories++;
-					GameFinished = true;
-					continue;
-				}
-				unsigned int BlackFault = b->BlacksOnBlackBase();
-				if (BlackFault > 0)
-				{
-					numLosses++;
-					GameFinished = true;
-					continue;
-				}
-			}
-			*/
-			if (NumBlackTurns == 80)
+
+			if (BlackTurns == 80)
 			{
 				if (WhiteProgress > BlackProgress)
 				{
@@ -120,17 +115,17 @@ void CornersMonteCarloEvaluator::EvaluateBoard()
 		if (currentPlayer->GetDidHop() == false)
 		{
 			if (currentPlayer == player1)
-				this->NumWhiteTurns++;
+				WhiteTurns++;
 			else
-				this->NumBlackTurns++;
+				BlackTurns++;
 			currentPlayer = (currentPlayer == player1) ? player2 : player1;
 		}
 		else if (currentPlayer->GetIsPassingTurn() == true)
 		{
 			if (currentPlayer == player1)
-				this->NumWhiteTurns++;
+				WhiteTurns++;
 			else
-				this->NumBlackTurns++;
+				BlackTurns++;
 			currentPlayer->SetDidHop(false);
 			currentPlayer->SetIsPassingTurn(false);
 			currentPlayer = (currentPlayer == player1) ? player2 : player1;

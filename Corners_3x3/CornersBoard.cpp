@@ -206,3 +206,19 @@ int CornersBoard::GetLegalHop(unsigned int startxpos, unsigned int startypos, un
 	}
 	return -1; //Stand still
 }
+
+const int CornersBoard::mask[8][8] = {
+	0, -3, -3, -3, -4, -5, -5, -5,
+	3, 0, -2, -3, -4, -5, -5, -5, 
+	3, 2, 0, -2, -4, -5, -5, -5,
+	3, 3, 2, 0, -3, -4, -4, -4,
+	4, 4, 4, 3, 0, -2, -3, -3,
+	5, 5, 5, 4, 2, 0, -2, -3,
+	5, 5, 5, 4, 3, 2, 0, -3,
+	5, 5, 5, 4, 3, 3, 3, 0
+};
+
+int CornersBoard::GetField(unsigned int xpos, unsigned int ypos)
+{
+	return mask[ypos][xpos];
+}

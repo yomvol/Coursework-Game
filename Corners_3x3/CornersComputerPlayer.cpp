@@ -33,39 +33,67 @@ bool CornersComputerPlayer::MakeMove(unsigned int numWhiteTurns, unsigned int nu
 		// Two possible horizontal moves + two possible vertical moves
 		endrow = startrow;
 		endcol = startcol - 2;
-		if (this->board->CheckLegal(startcol, startrow, endcol, endrow && !(endcol == prevprevcol || endrow == prevprevrow)))
+		if (this->board->CheckLegal(startcol, startrow, endcol, endrow) && !(endcol == prevprevcol && endrow == prevprevrow))
 		{
 			this->board->SetTile(endcol, endrow, this->tile); //Make this turn, evaluate the outcome and undo the turn
-			this->board->SetTile(startcol, startrow, Tile_Empty);
-			evaluators.push_back(new CornersMonteCarloEvaluator(this->board, 1000, (this->tile == Tile_White ? Tile_Black : Tile_White), startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns));
+			this->board->SetTile(startcol, startrow, Tile_Empty); //Jump and pass
+			if (this->tile == Tile_White)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_Black, startcol, startrow, endcol, endrow, numWhiteTurns + 1, numBlackTurns));
+			}
+			if (this->tile == Tile_Black)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_White, startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns + 1));
+			}
 			this->board->SetTile(endcol, endrow, Tile_Empty);
 			this->board->SetTile(startcol, startrow, this->tile);
 		}
 		endcol = startcol + 2;
-		if (this->board->CheckLegal(startcol, startrow, endcol, endrow && !(endcol == prevprevcol || endrow == prevprevrow)))
+		if (this->board->CheckLegal(startcol, startrow, endcol, endrow) && !(endcol == prevprevcol && endrow == prevprevrow))
 		{
 			this->board->SetTile(endcol, endrow, this->tile); //Make this turn, evaluate the outcome and undo the turn
 			this->board->SetTile(startcol, startrow, Tile_Empty);
-			evaluators.push_back(new CornersMonteCarloEvaluator(this->board, 1000, (this->tile == Tile_White ? Tile_Black : Tile_White), startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns));
+			if (this->tile == Tile_White)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_Black, startcol, startrow, endcol, endrow, numWhiteTurns + 1, numBlackTurns));
+			}
+			if (this->tile == Tile_Black)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_White, startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns + 1));
+			}
 			this->board->SetTile(endcol, endrow, Tile_Empty);
 			this->board->SetTile(startcol, startrow, this->tile);
 		}
 		endcol = startcol;
 		endrow = startrow - 2;
-		if (this->board->CheckLegal(startcol, startrow, endcol, endrow && !(endcol == prevprevcol || endrow == prevprevrow)))
+		if (this->board->CheckLegal(startcol, startrow, endcol, endrow) && !(endcol == prevprevcol && endrow == prevprevrow))
 		{
 			this->board->SetTile(endcol, endrow, this->tile); //Make this turn, evaluate the outcome and undo the turn
 			this->board->SetTile(startcol, startrow, Tile_Empty);
-			evaluators.push_back(new CornersMonteCarloEvaluator(this->board, 1000, (this->tile == Tile_White ? Tile_Black : Tile_White), startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns));
+			if (this->tile == Tile_White)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_Black, startcol, startrow, endcol, endrow, numWhiteTurns + 1, numBlackTurns));
+			}
+			if (this->tile == Tile_Black)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_White, startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns + 1));
+			}
 			this->board->SetTile(endcol, endrow, Tile_Empty);
 			this->board->SetTile(startcol, startrow, this->tile);
 		}
 		endrow = startrow + 2;
-		if (this->board->CheckLegal(startcol, startrow, endcol, endrow && !(endcol == prevprevcol || endrow == prevprevrow)))
+		if (this->board->CheckLegal(startcol, startrow, endcol, endrow) && !(endcol == prevprevcol && endrow == prevprevrow))
 		{
 			this->board->SetTile(endcol, endrow, this->tile); //Make this turn, evaluate the outcome and undo the turn
 			this->board->SetTile(startcol, startrow, Tile_Empty);
-			evaluators.push_back(new CornersMonteCarloEvaluator(this->board, 1000, (this->tile == Tile_White ? Tile_Black : Tile_White), startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns));
+			if (this->tile == Tile_White)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_Black, startcol, startrow, endcol, endrow, numWhiteTurns + 1, numBlackTurns));
+			}
+			if (this->tile == Tile_Black)
+			{
+				evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_White, startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns + 1));
+			}
 			this->board->SetTile(endcol, endrow, Tile_Empty);
 			this->board->SetTile(startcol, startrow, this->tile);
 		}
@@ -93,7 +121,14 @@ bool CornersComputerPlayer::MakeMove(unsigned int numWhiteTurns, unsigned int nu
 				{
 					this->board->SetTile(endcol, endrow, this->tile); //Make this turn, evaluate the outcome and undo the turn
 					this->board->SetTile(startcol, startrow, Tile_Empty);
-					evaluators.push_back(new CornersMonteCarloEvaluator(this->board, 1000, (this->tile == Tile_White ? Tile_Black : Tile_White), startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns));
+					if (this->tile == Tile_White)
+					{
+						evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_Black, startcol, startrow, endcol, endrow, numWhiteTurns + 1, numBlackTurns));
+					}
+					if (this->tile == Tile_Black)
+					{
+						evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_White, startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns + 1));
+					}
 					this->board->SetTile(endcol, endrow, Tile_Empty);
 					this->board->SetTile(startcol, startrow, this->tile);
 				}
@@ -109,7 +144,14 @@ bool CornersComputerPlayer::MakeMove(unsigned int numWhiteTurns, unsigned int nu
 				{
 					this->board->SetTile(endcol, endrow, this->tile); //Make this turn, evaluate the outcome and undo the turn
 					this->board->SetTile(startcol, startrow, Tile_Empty);
-					evaluators.push_back(new CornersMonteCarloEvaluator(this->board, 1000, (this->tile == Tile_White ? Tile_Black : Tile_White), startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns));
+					if (this->tile == Tile_White)
+					{
+						evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_Black, startcol, startrow, endcol, endrow, numWhiteTurns + 1, numBlackTurns));
+					}
+					if (this->tile == Tile_Black)
+					{
+						evaluators.push_back(new CornersMonteCarloEvaluator(this->board, NumOfGames, Tile_White, startcol, startrow, endcol, endrow, numWhiteTurns, numBlackTurns + 1));
+					}
 					this->board->SetTile(endcol, endrow, Tile_Empty);
 					this->board->SetTile(startcol, startrow, this->tile);
 				}

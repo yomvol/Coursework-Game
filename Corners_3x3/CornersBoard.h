@@ -6,6 +6,7 @@ class CornersBoard
 private:
 	const unsigned int boardsize = 8;
 	Tile** tiles;
+	static const int mask[8][8];
 
 public:
 	CornersBoard();
@@ -21,5 +22,6 @@ public:
 	unsigned int BlacksOnBlackBase();
 	unsigned int* FindPieces(Tile tile);
 	int GetLegalHop(unsigned int startxpos, unsigned int startypos, unsigned int previousxpos, unsigned int previousypos);
+	static int GetField(unsigned int xpos, unsigned int ypos);
 };
 

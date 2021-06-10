@@ -12,5 +12,12 @@ public:
 	virtual bool MakeMove(unsigned int NumWhiteTurns, unsigned int NumBlackTurns);
 	void SetPrevCol(unsigned int value) { this->prevcol = value; };
 	void SetPrevRow(unsigned int value) { this->prevrow = value; };
+	void SetPrevPrevCol(unsigned int value) { this->prevprevcol = value; };
+	void SetPrevPrevRow(unsigned int value) { this->prevprevrow = value; };
 };
 
+struct Turn
+{
+	unsigned int startrow, startcol, endrow, endcol;
+	int FlowCorrectionValue = 0;
+};
