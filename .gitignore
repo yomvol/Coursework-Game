@@ -50,3 +50,6 @@
 *.idb
 *.pdb
 *.ilk
+
+Browse.VC.db
+Browse.VC.db-shm
