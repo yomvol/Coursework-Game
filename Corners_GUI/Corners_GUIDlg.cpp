@@ -26,6 +26,7 @@ CCornersGUIDlg::CCornersGUIDlg(CWnd* pParent /*=nullptr*/)
 void CCornersGUIDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_CORNERSBOARD, Board);
 }
 
 BEGIN_MESSAGE_MAP(CCornersGUIDlg, CDialogEx)

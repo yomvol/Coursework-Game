@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "CCornersBoard.h"
 
 // CCornersGUIDlg dialog
 class CCornersGUIDlg : public CDialogEx
@@ -24,7 +24,7 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
-
+	CCornersBoard Board;
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();

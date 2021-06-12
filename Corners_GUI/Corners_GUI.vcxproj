@@ -183,14 +183,17 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCornersBoard.h" />
     <ClInclude Include="Corners_GUI.h" />
     <ClInclude Include="Corners_GUIDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCornersBoard.cpp" />
     <ClCompile Include="Corners_GUI.cpp" />
     <ClCompile Include="Corners_GUIDlg.cpp" />
     <ClCompile Include="pch.cpp">
