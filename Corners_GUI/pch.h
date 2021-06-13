@@ -9,5 +9,12 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
+#include <vector>
+#include <ctime>
+#include <mmsystem.h>
+#include "CCornersBoard.h"
+#include "CornersBoardModel.h"
+#include "CornersPlayer.h"
+using namespace std;
 
 #endif //PCH_H

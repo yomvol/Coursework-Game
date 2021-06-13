@@ -28,6 +28,7 @@ CCornersGUIApp::CCornersGUIApp()
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
+	srand(time(nullptr));
 }
 
 

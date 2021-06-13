@@ -1,9 +1,9 @@
 ﻿// CCornersBoard.cpp : implementation file
 //
-
 #include "pch.h"
 #include "Corners_GUI.h"
 #include "CCornersBoard.h"
+#include "Corners_GUIDlg.h"
 
 #define CORNERSBOARD_CLASSNAME L"CornersBoard"
 // CCornersBoard
@@ -12,15 +12,7 @@ IMPLEMENT_DYNAMIC(CCornersBoard, CWnd)
 
 CCornersBoard::CCornersBoard()
 {
-	for (unsigned int i = 0; i < boardsize; i++)
-		for (unsigned int j = 0; j < boardsize; j++)
-			tiles[i][j] = Tile_Empty;
-	for (unsigned int i = 0; i < 3; i++)
-		for (unsigned int j = 5; j < boardsize; j++)
-			tiles[j][i] = Tile_White;
-	for (unsigned int i = 5; i < boardsize; i++)
-		for (unsigned int j = 0; j < 3; j++)
-			tiles[j][i] = Tile_Black;
+	manager = nullptr;
 
 	AntiFlickeringTimer = GetTickCount64();
 	SelectedXpos = -1;
@@ -31,6 +23,7 @@ CCornersBoard::CCornersBoard()
 	{
 		// Nothing to free?
 	}
+
 }
 
 CCornersBoard::~CCornersBoard()
@@ -42,6 +35,8 @@ BEGIN_MESSAGE_MAP(CCornersBoard, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_MOUSELEAVE()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 
@@ -75,7 +70,7 @@ bool CCornersBoard::RegisterClass()
 		AfxThrowResourceException();
 		return FALSE;
 	}
-	
+
 	return TRUE;
 }
 
@@ -131,10 +126,13 @@ void CCornersBoard::OnPaint()
 		str.Empty();
 	}
 
+	if (this->manager == nullptr || this->manager->GetBoardMod() == nullptr)
+		return;
+
 	for (unsigned int i = 0; i < boardsize; i++)
 		for (unsigned int j = 0; j < boardsize; j++)
 		{
-			switch (tiles[j][i])
+			switch (this->manager->GetBoardMod()->GetTile(i, j))
 			{
 			case Tile_White:
 				this->DrawWhitePiece(dc, this->FromBCSToPxRect(i, j));
@@ -172,32 +170,53 @@ void CCornersBoard::FromPxToBCS(CPoint point, unsigned int& xpos, unsigned int& 
 
 void CCornersBoard::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	if (this->manager->GetGameInProgress() == false || this->manager->GetCurPlayer()->IsHuman() == false)
+	{
+		CWnd::OnLButtonDown(nFlags, point);
+		return;
+	}
+	
 	unsigned int x, y;
 	this->FromPxToBCS(point, x, y);
-	if ((SelectedXpos == -1 || SelectedYpos == -1) && tiles[y][x] != Tile_Empty) // temporary logic
+	if ((SelectedXpos == -1 || SelectedYpos == -1) && this->manager->GetBoardMod()->GetTile(x, y) != Tile_Empty && this->manager->GetCurPlayer()->GetDidHop() == false) // temporary logic
 	{
-		SelectedXpos = x;
-		SelectedYpos = y;
+		if (this->manager->GetBoardMod()->CheckLegalPick(x, y, this->manager->GetCurPlayer()->GetPColor()))
+		{
+			SelectedXpos = x;
+			SelectedYpos = y;
+			Invalidate();
+		}
+		else
+		{
+			this->manager->GetLog()->AddString(L"Try picking your own pieces, please.");
+			CWnd::OnLButtonDown(nFlags, point);
+			return;
+		}
 	}
 	else if (SelectedXpos >= 0 && SelectedYpos >= 0) //If clicked on empty tile, flow won`t pass
 	{
 		if (SelectedXpos != x || SelectedYpos != y)
 		{
-			Tile Picked = tiles[SelectedYpos][SelectedXpos];
-			SetTile(SelectedXpos, SelectedYpos, Tile_Empty);
-			SetTile(x, y, Picked);
+			if (this->manager->GetCurPlayer()->MakeMove(SelectedYpos, SelectedXpos, y, x, 0, 0) == true)
+			{
+				this->manager->Judge();
+				SelectedXpos = x;
+				SelectedYpos = y;
+			}
+			else
+			{
+				this->manager->GetLog()->AddString(L"Incorrect move.");
+			}
 		}
-		SelectedXpos = SelectedYpos = -1;
+		if (this->manager->GetCurPlayer()->GetDidHop() == false)
+		{
+			SelectedXpos = SelectedYpos = -1;
+		}
+		
 		this->Invalidate();
 	}
-	
 
 	CWnd::OnLButtonDown(nFlags, point);
-}
-
-void CCornersBoard::SetTile(unsigned int xpos, unsigned int ypos, Tile tile)
-{
-	tiles[ypos][xpos] = tile;
 }
 
 
@@ -315,6 +334,9 @@ void CCornersBoard::HighLightTile(CPaintDC& dc)
 		brush.DeleteObject();
 	}
 
+	if (this->manager == nullptr || this->manager->GetBoardMod() == nullptr)
+		return;
+
 	if (SelectedXpos >= 0 && SelectedYpos >= 0)
 	{
 		CRect rect = FromBCSToPxRect(SelectedXpos, SelectedYpos);
@@ -327,4 +349,45 @@ void CCornersBoard::HighLightTile(CPaintDC& dc)
 		dc.SelectObject(DefaultBrush);
 		brush.DeleteObject();
 	}
+}
+
+
+void CCornersBoard::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	if (this->manager->GetGameInProgress() == false || this->manager->GetCurPlayer()->IsHuman() == false || this->manager->GetCurPlayer()->GetDidHop() == false)
+	{
+		CWnd::OnRButtonDown(nFlags, point);
+		return;
+	}
+
+	CornersPlayer* P = this->manager->GetCurPlayer();
+	if (P->IsHuman() == true)
+	{
+		P->SetIsPassingTurn(true);
+		manager->Judge();
+		SelectedXpos = -1;
+		SelectedYpos = -1;
+		Invalidate();
+	}
+
+	CWnd::OnRButtonDown(nFlags, point);
+}
+
+
+void CCornersBoard::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	if (this->manager->GetGameInProgress() == false || this->manager->GetCurPlayer()->IsHuman() == false)
+	{
+		CWnd::OnKeyDown(nChar, nRepCnt, nFlags);
+		return;
+	}
+
+	if (nChar == 'S' || nChar == 's')
+	{
+		CornersPlayer* P = this->manager->GetCurPlayer();
+		P->SetIsSurrendering(true);
+		manager->Judge();
+	}
+
+	CWnd::OnKeyDown(nChar, nRepCnt, nFlags);
 }

@@ -96,6 +96,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>winmm.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -118,6 +119,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>winmm.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -184,8 +186,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCornersBoard.h" />
+    <ClInclude Include="CornersBoardModel.h" />
+    <ClInclude Include="CornersComputerPlayer.h" />
+    <ClInclude Include="CornersHumanPlayer.h" />
+    <ClInclude Include="CornersMonteCarloEvaluator.h" />
+    <ClInclude Include="CornersPlayer.h" />
+    <ClInclude Include="CornersRandomPlayer.h" />
     <ClInclude Include="Corners_GUI.h" />
     <ClInclude Include="Corners_GUIDlg.h" />
+    <ClInclude Include="CStartUpDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -194,8 +203,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCornersBoard.cpp" />
+    <ClCompile Include="CornersBoardModel.cpp" />
+    <ClCompile Include="CornersComputerPlayer.cpp" />
+    <ClCompile Include="CornersHumanPlayer.cpp" />
+    <ClCompile Include="CornersMonteCarloEvaluator.cpp" />
+    <ClCompile Include="CornersPlayer.cpp" />
+    <ClCompile Include="CornersRandomPlayer.cpp" />
     <ClCompile Include="Corners_GUI.cpp" />
     <ClCompile Include="Corners_GUIDlg.cpp" />
+    <ClCompile Include="CStartUpDlg.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -208,9 +224,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\CornersGUI.rc2" />
+    <None Include="res\sound1.bin" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Corners_GUI.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\watching-the-waves.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
