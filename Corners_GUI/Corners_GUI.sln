@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Corners_GUI", "Corners_GUI.vcxproj", "{5B8C11F2-4667-4065-A600-82E32FAF7F81}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Corners 3x3 v1.0", "..\Corners 3x3 v1.0\Corners 3x3 v1.0.vdproj", "{8552303A-011A-46C6-B7C2-FB6B21409E45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,11 @@ Global
 		{5B8C11F2-4667-4065-A600-82E32FAF7F81}.Release|x64.Build.0 = Release|x64
 		{5B8C11F2-4667-4065-A600-82E32FAF7F81}.Release|x86.ActiveCfg = Release|x64
 		{5B8C11F2-4667-4065-A600-82E32FAF7F81}.Release|x86.Build.0 = Release|x64
+		{8552303A-011A-46C6-B7C2-FB6B21409E45}.Debug|x64.ActiveCfg = Debug
+		{8552303A-011A-46C6-B7C2-FB6B21409E45}.Debug|x86.ActiveCfg = Debug
+		{8552303A-011A-46C6-B7C2-FB6B21409E45}.Release|x64.ActiveCfg = Release
+		{8552303A-011A-46C6-B7C2-FB6B21409E45}.Release|x64.Build.0 = Release
+		{8552303A-011A-46C6-B7C2-FB6B21409E45}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
