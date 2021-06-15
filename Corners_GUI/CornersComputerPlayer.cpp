@@ -3,7 +3,10 @@
 #include "CornersMonteCarloEvaluator.h"
 
 CornersComputerPlayer::CornersComputerPlayer()
-{}
+{
+	WayMark meaningless = {10, 10, 100};
+	PrevWayPoints.assign(10, meaningless);
+}
 
 void CornersComputerPlayer::SetBoard(CornersBoardModel* board)
 {
@@ -20,6 +23,7 @@ CornersComputerPlayer::~CornersComputerPlayer()
 {
 	delete[] PiecesCoords;
 	PiecesCoords = nullptr;
+	PrevWayPoints.clear();
 }
 
 bool CornersComputerPlayer::MakeMove(unsigned int backwardComp1, unsigned int backwardComp2, unsigned int backwardComp3, unsigned int backwardComp4, unsigned int numWhiteTurns, unsigned int numBlackTurns)
@@ -216,6 +220,55 @@ bool CornersComputerPlayer::MakeMove(unsigned int backwardComp1, unsigned int ba
 		this->prevprevrow = BestTurn->GetStartRow();
 		this->DidHop = true;
 	}
+
+	if (IsAntiloopingActive == false)
+	{
+		for (auto WayPoint = PrevWayPoints.begin(); WayPoint != PrevWayPoints.end(); WayPoint++)
+		{
+			if (WayPoint->WayMarkCol == BestTurn->GetEndCol() && WayPoint->WayMarkRow == BestTurn->GetEndRow())
+			{
+				IsAntiloopingActive = true; // LOOP START
+				BestALScalarFieldValue = WayPoint->FieldValue;
+				for (auto LoopIter = WayPoint; LoopIter != PrevWayPoints.end(); LoopIter++)
+				{
+					if (this->tile == Tile_White)
+					{
+						if (LoopIter->FieldValue < BestALScalarFieldValue)
+							BestALScalarFieldValue = LoopIter->FieldValue;
+					}
+					else //this->tile == Tile_Black
+					{
+						if (LoopIter->FieldValue > BestALScalarFieldValue)
+							BestALScalarFieldValue = LoopIter->FieldValue;
+					}
+				}
+			}
+		}
+		if (IsAntiloopingActive == false) // if current tile is none of 10 previously visited
+		{
+			WayMark CurrentTile;
+			CurrentTile.WayMarkRow = BestTurn->GetEndRow();
+			CurrentTile.WayMarkCol = BestTurn->GetEndCol();
+			CurrentTile.FieldValue = CornersBoardModel::GetField(CurrentTile.WayMarkCol, CurrentTile.WayMarkRow);
+			PrevWayPoints.erase(PrevWayPoints.begin());
+			PrevWayPoints.push_back(CurrentTile);
+		}
+	}
+	else
+	{
+		// Stop on tile with best SFV
+		if (CornersBoardModel::GetField(BestTurn->GetEndCol(), BestTurn->GetEndRow()) == BestALScalarFieldValue)
+		{
+			this->IsPassingTurn = true;
+			prevprevcol = 10;
+			prevprevrow = 10;
+			IsAntiloopingActive = false;
+			BestALScalarFieldValue = 100;
+		}
+	}
+
+	
+
 
 	for (auto evaluator = evaluators.begin(); evaluator != evaluators.end(); evaluator++)
 		delete (*evaluator);
