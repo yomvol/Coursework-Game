@@ -1,7 +1,8 @@
 # Coursework-Game
-Курсовая, 4 сем, ПП, Будылин В.С. АДБ-19-07
+This is the second year course work at programming classes at university. The project is based on MFC framework.
 NEVER MERGE MAIN AND MAIN2. Controls: LMB to choose a piece and destination. RMB to end jump combo. Press S to surrender.
 
+Rules:
 Уголки — настольная логическая игра на квадратном поле размером 8x8 клеток для двух участников.
 В начальном положении шашки обоих игроков занимают свои стартовые позиции (дома). В доме шашки размещаются квадратом 3х3.
 Каждый игрок может за один ход переместить одну шашку. Шашки можно перемещать в любом направлении по горизонтали и вертикали на соседнюю пустую клетку,
