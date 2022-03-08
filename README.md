@@ -1,5 +1,5 @@
 # Coursework-Game
-This is the second year course work at programming classes at university. The project is based on MFC framework.
+This is the second year course work at programming classes at university. The project is based on MFC framework. It features the installer, which is to be found in Corners 3x3 v1.0/Release
 NEVER MERGE MAIN AND MAIN2. Controls: LMB to choose a piece and destination. RMB to end jump combo. Press S to surrender.
 
 Rules:
