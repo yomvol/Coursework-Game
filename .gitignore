@@ -27,7 +27,6 @@
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 
@@ -53,5 +52,3 @@
 *.ilk
 
 #Additional stuff
-*.vdproj
-*.msi
