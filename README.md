@@ -1,3 +1,3 @@
 # Coursework-Game
-Курсовая, 4 сем, ПП, Будылин В.С. АДБ-19-07
+This is the first console prototype of the game.
 NEVER MERGE Main and Main2. They`re from independent local repos.
